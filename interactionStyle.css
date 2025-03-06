@@ -1,0 +1,39 @@
+
+
+body{
+    
+    color: rgb(18, 116, 197);
+    font-family:Cambria;
+    font-size: 18px;
+    
+}
+span{
+    color:rgb(223, 30, 30);
+    font-weight: bold;
+    font-style: italic;
+}
+h1{
+    color: rgb(199, 128, 35);
+}
+h2{
+    color: darkmagenta;
+}
+p{
+    text-align: justify;
+}
+.typicalCurve{
+    display: block;
+    width: 750px;
+    
+    
+
+}
+li{
+    text-align: justify;
+
+}
+.fig1-2{
+    background-color: lightblue;
+    width: 100px;
+
+}
