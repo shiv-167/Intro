@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axially Loaded Column</title>
+  <link rel="stylesheet" href="col.css">
+</head>
+<body>
+  <section>
+    <header><h1> Design of Axially Loaded Column</h1></header>
+    <div class="userInput">
+      <div class="matProperty">
+        <h3>Concrete Grade</h3>
+      <select name="concreteGrade" id="cGrade" >
+        <option value="15">M15</option>
+        <option value="20">M20</option>
+        <option value="25">M25</option>
+        <option value="30">M30</option>
+        <h4>Steel Grade</h4>
+             
+      </select>
+      <h3>Steel Grade</h3>
+      <select name="steelGrade" id="sGrade" >
+        <option value=250>Fe250</option>
+        <option value=415>Fe415</option>
+        <option value=500>Fe500</option>
+      </select>
+      </div>
+      <div class="colProperty">
+        <h3>Factored Load (Pu)</h3>
+        <input type="number" id="Pu" value="1500">
+        <label for="" class="unit">kN</label>
+        
+        <h3>Assume % of reinforcement</h3>
+        <input type="number" id="p" value="1.0">
+        <button onclick="
+        let Pu=parseFloat(document.getElementById('Pu').value);
+        
+        let p=parseFloat(document.getElementById('p').value);
+        let fck=parseFloat(document.getElementById('cGrade').value);
+        let fy=parseFloat(document.getElementById('sGrade').value);
+
+
+         c1= new AxialColumn(Pu,fck,fy);
+         ac=c1.GetAreaOfConcrete(p);
+        alert('area of concrete :'+ac+'mm2 \nsuggested size of square column :'+Math.round( Math.sqrt(ac)) +'mm');
+       
+        
+        ">Ok</button>
+        <div class="AdoptSize">
+          <h2>AdoptSize of Column</h2>
+          <h3>Column Width (b)</h3>
+        <input type="number" id="b" value="300">
+        <label for="" class="unit">mm</label>
+        <h3>Column Depth (D)</h3>
+        <input type="number" id="D" value="300">
+        <label for="" class="unit">mm</label>
+        <button onclick="
+        let b=parseFloat(document.getElementById('b').value);
+        let D=parseFloat(document.getElementById('D').value);
+        console.log(b+'x'+D);
+        let areaP=b*D;
+        
+        
+        if(areaP> ac){
+          alert('area is Ok req= '+ac+'provided= '+areaP);
+          
+        }
+        else 
+        alert('Insufficient area req= '+ac+'provided= '+areaP);
+        
+        
+        ">Check Size</button>
+        </div>
+        <label style="color:green; margin-top:200px ;">Developed by shiv nath mishra</label>
+        <script src="AxialColumn.js"></script>
+
+      </div>
+    </div>
+  </section>
+</body>
+</html>
