@@ -43,7 +43,8 @@
 
          c1= new AxialColumn(Pu,fck,fy);
          ac=c1.GetAreaOfConcrete(p);
-        alert('area of concrete :'+ac+'mm2 \nsuggested size of square column :'+Math.round( Math.sqrt(ac)) +'mm');
+         document.getElementById('result').innerHTML= '<p> area of concrete :'+ac+'mm2 </p>'+
+         '<p>suggested size of square column :'+Math.round( Math.sqrt(ac)) +'mm';
        
         
         ">Ok</button>
@@ -63,15 +64,16 @@
         
         
         if(areaP> ac){
-          alert('area is Ok req= '+ac+'provided= '+areaP);
+          document.getElementById('result').innerHTML='area is Ok req= '+ac+'provided= '+areaP;
           
         }
         else 
-        alert('Insufficient area req= '+ac+'provided= '+areaP);
+        document.getElementById('result').innerHTML='Insufficient area req= '+ac+'provided= '+areaP;
         
         
         ">Check Size</button>
         </div>
+        <div id="result" style="float: left; background-color: turquoise;width: 300px 400px;"></div>
         <label style="color:green; margin-top:200px ;">Developed by shiv nath mishra</label>
         <script src="AxialColumn.js"></script>
 
