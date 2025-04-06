@@ -1,0 +1,216 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopt Rebars</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th {
+            border: 2px solid blue;
+            padding: 4px;
+        }
+        td {
+            border: 2px solid green;
+            padding: 4px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 8px 16px;
+            background-color: #2e86de;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1b4f72;
+        }
+    </style>
+    <link rel="stylesheet" href="AdoptRf.css">
+</head>
+<body>
+    <h1>Adopt Rebars for slab</h1>
+    <table id="adoptRebar">
+        <thead>
+            <tr>
+                <th>Direction</th>
+                <th>Ast Required</th>
+                <th>Diameter of Rebar</th>
+                <th>Spacing Provided</th>
+                <th>Ast Provided</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script src="RCC.js"></script>
+    <script src="ContinuousSlab.js"></script>
+    <script src="ContinuousSlabCoeff.js"></script>
+    <script src="Deflection.js"></script>
+
+    <script>
+        // Get slab data from localStorage
+        const slab1 = JSON.parse(localStorage.getItem('slab1'));
+        const tableBodyElement = document.getElementById('tableBody');
+
+        // Add a row dynamically
+        tableBodyElement.innerHTML += `
+            <tr id="row-1">
+                <td>Along Short Span</td>
+                <td>${slab1.astX.toFixed(1)}</td>
+                <td>
+                    <select id="short-rebar-dia-1">
+                        <option value=8>8</option>
+                        <option value=10>10</option>
+                        <option value=12>12</option>
+                        <option value=16>16</option>
+                        <option value=20>20</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" id="spacing-1" value="150">
+                </td>
+                <td><p id="astP-1"></p></td>
+            </tr>
+
+            <tr id="row-2">
+                <td>Along Long Span</td>
+                <td>${slab1.astY.toFixed(1)}</td>
+                <td>
+                    <select id="short-rebar-dia-2">
+                        <option value=8>8</option>
+                        <option value=10>10</option>
+                        <option value=12>12</option>
+                        <option value=16>16</option>
+                        <option value=20>20</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" id="spacing-2" value="150">
+                </td>
+                <td><p id="astP-2"></p></td>
+            </tr>        `;
+
+            // Function to calculate Ast Provided
+            function calculateAstProvided() {
+                const d = parseFloat(document.getElementById('short-rebar-dia-1').value);
+                const s = parseFloat(document.getElementById('spacing-1').value);
+                if (!d || !s) return;
+                const area = (Math.PI * d * d) / 4;
+                const astXProvided = area / s * 1000;
+                document.getElementById('astP-1').textContent = astXProvided.toFixed(1);
+        }
+
+            function calculateAstProvided2() 
+            {
+                const d = parseFloat(document.getElementById('short-rebar-dia-2').value);
+                const s = parseFloat(document.getElementById('spacing-2').value);
+                if (!d || !s) return;
+                const area = (Math.PI * d * d) / 4;
+                const astXProvided2 = area / s * 1000;
+                document.getElementById('astP-2').textContent = astXProvided2.toFixed(1);
+            }
+
+            // Add event listeners for updates
+            document.getElementById('short-rebar-dia-1').addEventListener("change", calculateAstProvided);
+            document.getElementById('spacing-1').addEventListener("input", calculateAstProvided);
+            document.getElementById('short-rebar-dia-2').addEventListener("change", calculateAstProvided2);
+            document.getElementById('spacing-2').addEventListener("input", calculateAstProvided2);
+
+            // Initial calculations
+            calculateAstProvided();
+            calculateAstProvided2();
+
+            // Create the check button dynamically
+            const checkButton = document.createElement("button");
+            checkButton.textContent = "Check for Deflection";
+            document.body.appendChild(checkButton);
+            checkButton.addEventListener("click", checkDeflection);
+
+        function checkDeflection() 
+        {
+            try {
+                    
+
+                    // Set values in slab1
+                    slab1.astProShort = parseFloat(document.getElementById('astP-1').textContent);
+                    slab1.astProLong = parseFloat(document.getElementById('astP-2').textContent);
+                    slab1.diaShort = parseFloat(document.getElementById('short-rebar-dia-1').value);
+                    
+                    slab1.diaLong = parseFloat(document.getElementById('short-rebar-dia-2').value);
+                    slab1.pt =parseFloat(slab1.astProShort / slab1.adoptedDepth / 1000 * 100);
+                    slab1.pc = 0;
+                    slab1.ec= slab1.diaShort/2.0+slab1.cc;
+                    slab1.D = parseFloat(slab1.adoptedDepth) + parseFloat(slab1.ec);
+                    slab1.spacingShort = parseFloat(document.getElementById('spacing-1').value);
+                    slab1.spacingLong= parseFloat(document.getElementById('spacing-2').value);
+                    
+                    //check asprovieded greater than ast required
+                    if (slab1.astX > slab1.astProShort || slab1.astY > slab1.astProLong) 
+                    {
+                        throw new Error("Ast Provided is less than Ast Required for one or more directions.");
+                    }
+
+                    const dc = new DeflectionCriteria
+                    (
+                        slab1.fy, slab1.astX, slab1.astProShort, slab1.pt, slab1.pc, "Continuous", slab1.lx
+                    );
+                    slab1.dfc=dc;
+
+                    // Create a div for the result and append to the body
+                    const resultDiv = document.createElement('div');
+                    resultDiv.innerHTML = `
+                    <h3>Adopted Depth: ${slab1.adoptedDepth} mm</h3>
+                    <h3>pt: ${(slab1.pt).toFixed(4)} %</h3>
+                    <h3>kt: ${(dc.kt).toFixed(2)}</h3>
+                    <h3>kc: ${(dc.kc).toFixed(2)}</h3>
+                    <h3>fs: ${(dc.fs).toFixed(2)} N/mm<sup>2</sup></h3>
+                    <h3>Depth from Deflection Criteria: ${(dc.dMin * 1000).toFixed(2)} mm</h3>
+                    <h3>Basic Span to Depth Ratio: ${dc.basicSpanDepthRatio}</h3>
+                    <h3>Allowable Span to Depth Ratio: ${dc.allowableSpanDepthRatio.toFixed(2)}</h3> `;
+                    document.body.appendChild(resultDiv);
+
+                    // Append a message depending on the deflection check result
+                    const resultMessage = document.createElement('h3');
+                    if (slab1.adoptedDepth > dc.dMin * 1000) {
+                        resultMessage.style.color = 'green';
+                        resultMessage.textContent = 'Slab is Safe';
+                    } else {
+                    resultMessage.style.color = 'red';
+                    resultMessage.textContent = 'Slab fails in deflection! Revise the depth';
+                    }
+                    resultDiv.appendChild(resultMessage);
+
+                    // Add link to revise depth
+                    const reviseLink = document.createElement('p');
+                    reviseLink.style.color = 'red';
+                    const link = document.createElement('a');
+                    link.href = "AdoptThickness.html";
+                    link.textContent = " Revise Depth";
+                    reviseLink.appendChild(link);
+                    resultDiv.appendChild(reviseLink);
+
+                    // Add link to go to the report
+                    const reportLink = document.createElement('p');
+                    reportLink.style.color = 'red'; // Corrected to style the 'reportLink' element
+                    const linkR = document.createElement('a');
+                    linkR.href = "Report.html"; // Corrected to use 'linkR' for the report link
+                    linkR.textContent = " Go to Report";
+                    reportLink.appendChild(linkR);
+                    resultDiv.appendChild(reportLink);
+                    localStorage.setItem('slab1', JSON.stringify(slab1));
+
+
+
+
+
+                } catch (err) {
+                alert(err.message);
+            }
+        }
+    </script>
+</body>
+</html>

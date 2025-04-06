@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlabDesign</title>
+    <link rel="stylesheet" href="SlabDesign.css">
+    <link rel="icon" href="logo.jpeg" type="image/x-icon">
+</head>
+<body>
+  <section>
+    <img src="logo.jpeg" alt="logo" style="width: 100px;">
+  </section>
+  <section id="refrence">
+    <header>
+        <h1>Design moment coefficients</h1>
+    </header>
+   
+    
+  </section>  
+  <section id="userInput">
+    <label for="">Select Grade of Concrete</label>
+    <select name="" id="cGrade">
+      <option value=15 >M15</option>
+      <option value=20 >M20</option>
+      <option value=25 >M25</option>
+      <option value=30 >M30</option>
+      
+    </select>
+    <label for="">Select Steel Grade</label>
+    <select name="" id="sGrade">
+    <option value=250>Fe250</option>
+    <option value=415>Fe415</option>
+    <option value=500>Fe500</option>
+  </select>
+    <select name="" id="panel">
+      <option value="ip">Interior Panel</option>
+      <option value="osed">One Short Edge Discontinuous</option>
+      <option value="oled">One Long Edge Discontinuous</option>
+      <option value="taed">Two Adjacent Edge Discontinuous</option>
+      <option value="tsed">Two Short Edge Discontinuous</option>
+      <option value="tled">Two Long Edge Discontinuous</option>
+      <option value="tedl">Three Edge Discontinuous(one long edge continuous) </option>
+      <option value="teds">Three Edge Discontinuous(one long edge continuous)</option>
+      <option value="fed">Four Edges Discontinuous</option>
+
+
+  </select>
+  <input type="number" placeholder="Short span length in meter" id="input-lx">
+  <input type="number" placeholder="Long Span length in meter" id="input-ly">
+  <input type="number" placeholder="Dead Load in kN/m2" id="input-dl">
+  <input type="number" placeholder="Live Load in kN/m2" id="input-ll">
+  <button id="button-accept">Accept</button>
+
+
+  </section>
+  <script src="ContinuousSlab.js"></script>
+<script src="ContinuousSlabCoeff.js"></script>
+<script src="RCC.js"></script>
+
+  <script>
+    const panelElement = document.getElementById("panel");
+    panelElement.addEventListener("change", doreq);
+
+    function doreq() {
+       console.log("changed: " + panelElement.value+'.jpg');
+    }
+    const btnElement = document.getElementById('button-accept');
+    btnElement.addEventListener("click", accept);
+    function accept(){
+      fck =parseFloat(document.getElementById('cGrade').value); 
+      fy=parseFloat (document.getElementById('sGrade').value);
+      lx=parseFloat (document.getElementById('input-lx').value);
+      ly=parseFloat (document.getElementById('input-ly').value);
+      dl=parseFloat (document.getElementById('input-dl').value);
+      ll=parseFloat (document.getElementById('input-ll').value);
+      panelType=document.getElementById('panel').value;
+
+
+     const slab = new ContinuousSlab(panelType, ly,lx,fck,fy,dl,ll)
+     localStorage.setItem('slab', JSON.stringify(slab));
+     window.location.href = 'AdoptThickness.html';
+     
+      
+    }
+    
+    
+
+</script>
+
+
+
+
+    
+</body>
+</html>

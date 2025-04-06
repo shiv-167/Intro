@@ -1,0 +1,178 @@
+/* Reset some default styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body Styling */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Light gray background */
+    color: #333; /* Dark text for readability */
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+  
+  /* Header Styling */
+  h1 {
+    text-align: center;
+    color: #2e86de;
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+  
+  /* Table Header Styling */
+  th {
+    background-color: #2e86de;
+    color: white;
+    padding: 12px 16px;
+    font-size: 1rem;
+    text-align: left;
+    border: 2px solid #2e86de;
+  }
+  
+  /* Table Data Styling */
+  td {
+    padding: 12px 16px;
+    text-align: left;
+    border: 2px solid #ddd;
+    font-size: 1rem;
+  }
+  
+  /* Table Row Styling on Hover */
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Input Fields and Select Styling */
+  input[type="number"], select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  input[type="number"]:focus, select:focus {
+    border-color: #2e86de;
+    outline: none;
+  }
+  
+  /* Button Styling */
+  button {
+    background-color: #2e86de;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #1b4f72;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Section for Deflection Results */
+  .result-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  /* Styling for Deflection Result Text */
+  .result-section h3 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Result Message Styling */
+  .result-message {
+    font-size: 1.2rem;
+    margin-top: 20px;
+  }
+  
+  .result-message.green {
+    color: green;
+  }
+  
+  .result-message.red {
+    color: red;
+  }
+  
+  .result-link {
+    color: red;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  
+  .result-link a {
+    text-decoration: none;
+    color: #2e86de;
+    font-weight: bold;
+  }
+  
+  .result-link a:hover {
+    color: #1b4f72;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    body {
+      padding: 15px;
+    }
+  
+    table, .result-section {
+      width: 100%;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    th, td {
+      padding: 10px;
+    }
+  
+    button {
+      font-size: 1rem;
+      padding: 10px 15px;
+    }
+  
+    input[type="number"], select {
+      font-size: 1rem;
+      padding: 10px;
+    }
+  }
+  

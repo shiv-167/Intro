@@ -1,0 +1,95 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f5f0;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  }
+  
+  header h1 {
+    color: #d32f2f;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  h2 {
+    color: #1976d2;
+    margin-top: 20px;
+  }
+  
+  h3 {
+    color: #6a1b9a;
+    margin-top: 15px;
+  }
+  
+  .userInput {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+  }
+  
+  .inputGroup {
+    flex: 1 1 300px;
+    padding: 15px;
+    background: #f1f8e9;
+    border-radius: 10px;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+  }
+  
+  .unit {
+    color: #e64a19;
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  .btn {
+    background-color: #0288d1;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #01579b;
+  }
+  
+  .resultBox {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e0f7fa;
+    border-left: 5px solid #00acc1;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  .footer {
+    margin-top: 30px;
+    color: green;
+    font-weight: bold;
+    text-align: center;
+  }
+  

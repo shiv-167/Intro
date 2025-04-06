@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopt Thickness of Slab</title>
+    <link rel="stylesheet" href="AdopthDepth.css">
+</head>
+    <body>
+    <Section id="given">
+        
+    </Section>
+    <section id="adopt-depth">
+     
+    </section>
+    
+    
+    
+    
+    <script>
+        
+        let  slab = JSON.parse(localStorage.getItem('slab'));
+
+        // Given data
+        document.getElementById('given').innerHTML += `<h1>Given</h1>`;
+        document.getElementById('given').innerHTML += `<p>Length along Shorter span lx : ${slab.lx} m</p>`;
+        document.getElementById('given').innerHTML += `<p>Length along Longer span lx : ${slab.ly} m</p>`;
+        document.getElementById('given').innerHTML += `<p>Dead Load : ${slab.dl} kN/m<sup>2</sup></p>`;
+        document.getElementById('given').innerHTML += `<p>Live Load : ${slab.ll} kN/m<sup>2</sup></p>`;
+        document.getElementById('given').innerHTML += `<p>Factored Total Load : ${slab.factoredLoad} kN/m<sup>2</sup></p>`;
+        document.getElementById('given').innerHTML += `<p>Concrete Grade : M ${slab.fck}</p>`;
+        document.getElementById('given').innerHTML += `<p>Steel Grade : Fe ${slab.fy}</p>`;
+
+        // Coefficient calculation
+        document.getElementById('adopt-depth').innerHTML += `<h1>Moment Coefficients</h1>`;
+        document.getElementById('adopt-depth').innerHTML+=`<p>Aspect Ratio : ${slab.aspectRatio}`
+        document.getElementById('adopt-depth').innerHTML += `<p>Negative Coefficient at Support along Short Span (&alpha;x-): ${slab.slabCoefficients.supNeg}</p>`;
+        document.getElementById('adopt-depth').innerHTML += `<p>Positive Coefficient at span along Short Span (&alpha;x+): ${slab.slabCoefficients.spanPos}</p>`;
+        document.getElementById('adopt-depth').innerHTML += `<p>Negative Coefficient at support along Long Span (&alpha;y-): ${slab.slabCoefficients.longNeg}</p>`;
+        document.getElementById('adopt-depth').innerHTML += `<p>Positive Coefficient at mid-span along Long Span (&alpha;y+): ${slab.slabCoefficients.longPos}</p>`;
+
+
+        // Moment calculation
+        document.getElementById('adopt-depth').innerHTML += `<h1>Moment Calculation</h1>`;
+        document.getElementById('adopt-depth').innerHTML += `<p>Negative Moment at Support along Short Span (Mx-): ${slab.Mx_Neg}</p>`;
+        document.getElementById('adopt-depth').innerHTML += `<p>Positive Moment at span along Short Span (Mx+): ${slab.Mx_Pos}</p>`;
+        document.getElementById('adopt-depth').innerHTML += `<p>Negative Moment at support along Long Span (My-): ${slab.My_Neg}</p>`;
+        document.getElementById('adopt-depth').innerHTML += `<p>Positive Moment at mid-span along Long Span (My+): ${slab.My_Pos}</p>`;
+
+        // Dynamically create and add the input field for depth (from slab.dMin)
+        const inputSection = document.createElement('section');
+        inputSection.id = 'user1-input';
+        inputSection.innerHTML = `
+            <h2>Adopt Depth for Slab</h2>
+        
+            <p>Suggested Minimum Depth from Moment Consideration: ${slab.dMin} mm</p>
+            <label for="depth">Enter Depth:</label>
+            <input type="number" id="depth" placeholder="Enter Depth" value="${slab.dMin}">
+        
+            <button id="btn-Adopt">Adopt Effective Depth</button>
+        `;
+        document.body.appendChild(inputSection);
+        const btnElement = document.getElementById('btn-Adopt');
+        
+        btnElement.addEventListener("click", function() {
+            try
+        {// Retrieve the depth value
+        let adoptedDepth =parseFloat (document.getElementById('depth').value);
+        
+        let slab1 = new ContinuousSlab(slab.panelType, slab.ly, slab.lx, slab.fck, slab.fy, slab.dl, slab.ll);
+        console.log('adoptedepth: '+adoptedDepth);
+        console.log('dMin: '+slab.dMin);
+        if(adoptedDepth>=slab1.dMin)
+        {slab1.setDepth(adoptedDepth);
+        slab1.cc = slab.cc;
+        localStorage.setItem('slab1', JSON.stringify(slab1));
+        window.location.href = 'AdoptRf.html';}
+        else throw Error("adopted depth should be greater than minimum depth");
+        }catch(error){alert(error.message);}
+         
+    });
+        
+        //slab.adoptedDepth= adoptedDepth; alert('steel req:'+RCC.GetAst(1000,adoptedDepth,slab.fck,slab.fy,slab.Mu));})
+
+
+
+
+
+    </script>
+    <script src="ContinuousSlab.js"></script>
+    <script src="ContinuousSlabCoeff.js"></script>
+    <script src="RCC.js"></script>
+</body>
+</html>

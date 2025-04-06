@@ -1,0 +1,198 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slab Design Report</title>
+    <link rel="stylesheet" href="Report.css">
+</head>
+<body>
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>
+            This report presents the structural design calculations for a two-way continuous reinforced cement concrete slab. The slab is analyzed and designed as per IS 456:2000.
+        </p>
+    </section>
+    <section id="given"></section>
+
+    
+    <section id="coeff">
+        <h2>Moment Coefficients and Moment Calculation</h2>
+        <table>
+            <tr>
+                <th rowspan="2">Location</th>
+                <th colspan="2">Coefficients</th>
+                <th colspan="2">Moments</th>
+            </tr>
+            <tr>
+                <th>Along Short Span</th>
+                <th>Along Long Span</th>
+                <th>Along Short Span (kN-m)</th>
+                <th>Along Long Span (kN-m)</th>
+            </tr>
+            <tr>
+                <td>Support</td>
+                <td id="ashortSupport"></td>
+                <td id="alongSupport"></td>
+                <td id="MshortSupport"></td>
+                <td id="MlongSupport"></td>
+            </tr>
+            <tr>
+                <td>Span</td>
+                <td id="ashortSpan"></td>
+                <td id="alongSpan"></td>
+                <td id="MshortSpan"></td>
+                <td id="MlongSpan"></td>
+            </tr>
+            <tr>
+                <td>Maximum</td>
+                <td></td>
+                <td></td>
+                <td id="maxShort"></td>
+                <td id="maxLong"></td>  <!-- Fixed duplicate id issue -->
+            </tr>
+        </table>
+    </section>
+    <section id="loadCal"></section>
+    <section id="minDepth">
+        <h2>Minimum Depth from Maximum Moment Consideration</h2>
+        <p id="p-maxM">Maximum moment considered : </p>
+        <section class="math-block">
+        <math>
+            <mi>The minimum depth from (dMin)</mi>
+            <mo>=</mo>
+            <msqrt>
+                <mfrac>
+                    <mi style="font-size: 16px;">Mu</mi>
+                    <mrow>
+                        <mi style="font-size: 16px;">R</mi>
+                        <mo>&times;</mo>
+                        <mi style="font-size: 16px;">fck</mi>
+                        <mo>&times;</mo>
+                        <mi style="font-size: 16px;">b</mi>
+                    </mrow>
+                </mfrac>
+            </msqrt>
+        </math>
+    </section>
+        <p id="p-dMin">The minimum depth (dMin) :</p>
+        <p id="adoptedDepth">Depth adopted :</p>
+    </section>
+    
+    <section id="adoptReinforcement">
+        <h2>Reinforcement Details</h2>
+        <p id="p-astX">Reinforcement required along short span :</p>
+        <p id="adoptAstx"></p>
+        <p id="p-astY">Reinforcement required along short span :</p>
+        <p id="adoptAsty"></p>
+
+    </section>
+    <section id="sect-Deflection">
+        <h2>Check for Deflection Criteria</h2>
+        <p>Supprt condition : continuous</p>
+
+    </section>
+
+    <script>
+        let slab1 = JSON.parse(localStorage.getItem('slab1'));
+
+        if (!slab1) {
+            alert("Error: No slab data found. Please input values first.");
+        } else {
+            console.log(slab1);
+
+            // Section: Given Data
+            let givenSect = document.getElementById('given');
+            givenSect.innerHTML = `
+                <h2>Given Data</h2>
+                <ul>
+                    <li>Slab Dimension (lx): ${slab1.lx} m</li>
+                    <li>Slab Dimension (ly): ${slab1.ly} m</li>
+                    <li>Dead Load (DL): ${slab1.dl} kN/m<sup>2</sup></li>
+                    <li>Live Load (LL): ${slab1.ll} kN/m<sup>2</sup></li>
+                    <li>Concrete Grade: M${slab1.fck}</li>
+                    <li>Steel Grade: Fe${slab1.fy}</li>
+                    <li>Clear Cover: ${slab1.cc} mm</li>
+                    <li>Panel Type: ${slab1.panelType}</li>
+                </ul>`;
+                /////////////
+             /////////////////////   
+            // Section: Load Calculation
+            //////////////////
+            let sectionLoad = document.createElement('div');
+            sectionLoad.id = "loadCalDiv";
+            sectionLoad.innerHTML = `
+                <h2>Load Calculation</h2>
+                <p>Total Load: DL + LL</p> 
+                <p>Factored Load = 1.5 × (DL + LL) = ${slab1.factoredLoad} kN/m<sup>2</sup></p>
+            `;
+            let coeffSection = document.getElementById('coeff');
+            coeffSection.parentNode.insertBefore(sectionLoad, coeffSection);
+
+             //////////////////////   
+            // Section: Coefficients and Moments
+            /////////////
+            document.getElementById('ashortSupport').textContent = slab1.slabCoefficients.supNeg;
+            document.getElementById('alongSupport').textContent = slab1.slabCoefficients.longNeg;
+            document.getElementById('MshortSupport').textContent = slab1.Mx_Neg;
+            document.getElementById('MlongSupport').textContent = slab1.My_Neg;
+            document.getElementById('ashortSpan').textContent = slab1.slabCoefficients.spanPos;
+            document.getElementById('alongSpan').textContent = slab1.slabCoefficients.longPos;
+            document.getElementById('MshortSpan').textContent = slab1.Mx_Pos;
+            document.getElementById('MlongSpan').textContent = slab1.My_Pos;
+             /////////////   
+            // Calculate and display maximum moments
+            //////////////
+            let maxMomentShort = Math.max(slab1.Mx_Neg, slab1.Mx_Pos);
+            let maxMomentLong = Math.max(slab1.My_Neg, slab1.My_Pos);
+            document.getElementById('maxShort').textContent = maxMomentShort;
+            document.getElementById('maxLong').textContent = maxMomentLong;
+            //////////////////////////////////////
+            ////////Minimum depth section
+            ///////////////////////////////////////
+            document.getElementById('p-maxM').innerHTML+=`${Math.max(maxMomentLong,maxMomentShort)} kN-m ;`
+            document.getElementById('p-dMin').innerHTML+=` ${slab1.dMin} mm`;
+            document.getElementById('adoptedDepth').innerHTML+=` ${slab1.adoptedDepth} mm `;
+            //////////////////////////////////////
+            ////////Adopt Rebars Section
+            ///////////////////////////////////////
+            slab1.astX =slab1.astX.toFixed(1);//for fixing to 2 decimal 
+            document.getElementById('p-astX').innerHTML += ` ${slab1.astX} mm <sup>2</sup> <br>
+             Adopt ${slab1.diaShort} mm &phi;  &#64; ${slab1.spacingShort} c/c spacing <br> Hence provided steel :${slab1.astProShort} mm <sup>2</sup>   </p>`;
+
+            slab1.astY = slab1.astY.toFixed(1);
+            document.getElementById('p-astY').innerHTML += ` ${slab1.astY} mm <sup>2</sup><br>
+             Adopt ${slab1.diaLong} mm &phi;  &#64; ${slab1.spacingLong} c/c spacing <br> Hence provided steel :${slab1.astProLong} mm <sup>2</sup>   </p>`;
+             ///////////////////////////
+             //////Deflection Criteria
+             /////////////////////////////
+             document.getElementById('sect-Deflection').innerHTML+=`
+             <p>Percentage of tension reinforcement (pt) : ${slab1.dfc.pt.toFixed(3)} % </p>
+             Modification factor for tension reinforcement (kt) : ${slab1.dfc.kt.toFixed(2)} </p>
+             Modification factor for compression reinforcement (kc) :${slab1.dfc.kc}  </p> 
+             Service Stress (fs): 0.58 * fy Astreq/Astpro </p>
+             Hence Service stress (fs) : ${slab1.dfc.fs.toFixed(2)} N/mm <sup>2</sup> </p>
+             Basic allowable  span to depth ratio for continuous supprt : 26 <br>
+             Allwable span to depth ratio :${slab1.dfc.allowableSpanDepthRatio.toFixed(1)} <br>
+             The minimum depth from deflection criteria :${(slab1.dfc.dMin*1000).toFixed(1)} mm </h4> `;
+             if(slab1.adoptedDepth<slab1.dfc.dmin){
+                document.getElementById('sect-Deflection').innerHTML+=`<h4 style="color:red">Slab fails in Deflection Criteria </h4>`
+
+             }else {
+                document.getElementById('sect-Deflection').innerHTML+=`<h4 style="color:green">Slab pass in Deflection Criteria </h4>`
+
+             }
+
+
+          
+            
+            
+
+
+
+
+
+
+        }
+    </script> 
+</body>
+</html>

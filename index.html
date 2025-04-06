@@ -1,62 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Shivnathmishra</title>
-        <style>
-            h2,h3
-            { color:blue;
-             border:1px solid lightblue;
-             border-radius:10px;
-            }
-            p{
-                color:green
-            }
-            Sidebar
-            {
-                background-color:black;
-                position:fixed;
-                width:300px;
-                height:100%;
-                top:0;
-                left:0;
-                color:white;
-                float:left
-            }
-            body{
-                display:flex;
-               
-            }
-            a{
-                display:block;
-                color:white;
-                font-size:20px;
-                font-weight:bold;
-                text-decoration: none;
-                
-                
-            }
-            .infor{
-               margin-left: 300px;
-                background-color:lightblue;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shiv's Web-Apps</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        header {
+            background-color: #1e90ff;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #20b2aa;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+            font-size: 18px;
+        }
+        nav a:hover {
+            background-color: #008b8b;
+        }
+        section {
+            padding: 50px 10%;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .Web-Apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .Web-Apps-item {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .Web-Apps-item:hover {
+            transform: scale(1.05);
+        }
+        .Web-Apps-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .Web-Apps-item h3 {
+            margin-top: 10px;
+            color: #20b2aa;
+        }
+        footer {
+            background-color: #1e90ff;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            
+            justify-content: center;
+        }
+        .skills-list li {
+            background-color: #20b2aa;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
 
-            }
-        </style>
-    </head>
-    <body>
-        <Sidebar>
-            <a href="home.html">Home</a>
-            <a href="interaction.html">Interaction curve</a>
-            <a href="Column/index.html">Axially Loaded Column</a>
-            <a href="DesignStress/DesignStress.html">Design Stress for Steel & Concrete</a>
-        </Sidebar>
-        <div class="infor">
-        <h2>Shiv Nath Mishra</h2>
-        <p>Works in Department of Roads</p>
-        <p>Address : Malangawa Sarlahi</p>
-         <a href="hello.html">this is hello</a>
-       <h3>this is Demo App. version 2.0 on the way</h3> 
-        <img src="scene.jpg" >
+    <!-- Header Section -->
+    <header>
+        <h1>Shiv's Web-Apps</h1>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#skills">Skills</a>
+        <a href="#Web-Apps">Web-Apps</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- About Me Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            Hello! I'm Shiv — a passionate web designer and developer with a background in civil engineering.
+            I specialize in creating clean, functional, and visually engaging websites that not only look great but also deliver a smooth user experience. 
+            My goal is to help individuals and businesses bring their ideas to life through modern and responsive web design.
+        </p>
+        
+        <p>
+            I hold a Bachelor's degree in Civil Engineering from <strong>Tribhuvan University</strong>, where I developed a strong foundation in technical problem-solving, structural design, and analytical thinking. 
+            Currently, I’m working at the <strong>Department of Roads, Nepal</strong>, where I contribute to infrastructure development that shapes our nation's connectivity and growth.
+        </p>
+        
+        <p>
+            While my professional background lies in civil engineering, my passion for technology and design led me to the world of web development. 
+            Now, I combine the precision of engineering with the creativity of design to build meaningful digital experiences.
+        </p>
+        
+        <p>
+            Feel free to explore my Web-Apps to see some of the projects I've worked on — from structural design tools to sleek websites. 
+            Let’s connect and build something amazing together!
+        </p>
+        
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>My Skills</h2>
+        <ul class="skills-list">
+            <li>HTML, CSS, JavaScript</li>
+            <li>Responsive Web Design</li>
+            <li>UI/UX Design</li>
+            <li>Adobe Photoshop</li>
+            <li>.NET Framework, C#</li>
+            <li>AutoCAD.NET Development</li>
+            <li>STAAD Pro</li>
+            <li>ETABS</li>
+        </ul>
+    </section>
+
+    <!-- Web-Apps Section -->
+    <section id="Web-Apps">
+        <h2>My Web-Applications</h2>
+        <div class="Web-Apps-grid">
+            <!-- Web-Apps Item 1 -->
+            <div class="Web-Apps-item">
+                <a href="SlabDesign/index.html">
+                    <img src="images/imageSlab.png" alt="Slab Design Application" style="width:100px">
+                </a>
+                <h3>Continuous Two-Way Slab Design</h3>
+                <p>A web-based application for designing continuous two-way slabs as per IS 456:2000 guidelines.</p>
             </div>
-    </body>
+
+            <!-- Web-Apps Item 2 -->
+            <div class="Web-Apps-item">
+                <a href="DesignStress/DesignStress.html"><img src="images/curve.png" alt="Design 2" style="width: 100px;"></a>
+                
+                <h3>Stress Stress within Elastic Limit</h3>
+                <p>To determine the stress in steel and concrete from known strain values,  <em>Hooke’s Law</em>  is applied within the elastic range of the materials</p>
+            </div>
+
+            <!-- Web-Apps Item 3 -->
+            <div class="Web-Apps-item">
+                <img src="design3.jpg" alt="Design 3">
+                <h3>Project 3</h3>
+                <p>Short description of this project.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Feel free to get in touch with me for any inquiries or projects!</p>
+        <p>Email: <a href="mailto:shiv@example.com">shiv@example.com</a></p>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 Shiv's Web-Apps. All rights reserved.</p>
+    </footer>
+
+</body>
 </html>

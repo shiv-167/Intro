@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SlabDesign</title>
+  <link rel="stylesheet" href="SlabDesign.css">
+  <link rel="icon" href="logo.jpeg" type="image/x-icon">
+</head>
+<body>
+  <section id="logo-section">
+    <img src="logo.jpeg" alt="logo" id="logo-img">
+  </section>
+
+  <section id="reference">
+    <header>
+      <h1>Based on IS 456 : 2000 Guidelines</h1>
+    </header>
+  </section>
+
+  <section id="userInput">
+    <h2>Input Section</h2>
+
+    <label for="cGrade">Select Grade of Concrete</label>
+    <select name="cGrade" id="cGrade">
+      <option value="15">M15</option>
+      <option value="20">M20</option>
+      <option value="25">M25</option>
+      <option value="30">M30</option>
+    </select>
+
+    <label for="sGrade">Select Steel Grade</label>
+    <select name="sGrade" id="sGrade">
+      <option value="250">Fe250</option>
+      <option value="415">Fe415</option>
+      <option value="500">Fe500</option>
+    </select>
+
+    <label for="panel">Select Panel Type</label>
+    <select name="panel" id="panel">
+      <option value="ip">Interior Panel</option>
+      <option value="osed">One Short Edge Discontinuous</option>
+      <option value="oled">One Long Edge Discontinuous</option>
+      <option value="taed">Two Adjacent Edge Discontinuous</option>
+      <option value="tsed">Two Short Edge Discontinuous</option>
+      <option value="tled">Two Long Edge Discontinuous</option>
+      <option value="tedl">Three Edges Discontinuous (long edge continuous)</option>
+      <option value="teds">Three Edges Discontinuous (short edge continuous)</option>
+      <option value="fed">Four Edges Discontinuous</option>
+    </select>
+
+    <label for="input-lx">Short Span Length (m)</label>
+    <input type="number" id="input-lx" placeholder="Short span length in meter">
+
+    <label for="input-ly">Long Span Length (m)</label>
+    <input type="number" id="input-ly" placeholder="Long span length in meter">
+
+    <label for="input-dl">Dead Load (kN/m²)</label>
+    <input type="number" id="input-dl" placeholder="Dead Load in kN/m²">
+
+    <label for="input-ll">Live Load (kN/m²)</label>
+    <input type="number" id="input-ll" placeholder="Live Load in kN/m²">
+
+    <label for="input-cc">Clear Cover (mm)</label>
+    <input type="number" id="input-cc" placeholder="Clear Cover in mm">
+
+    <button id="button-accept">Accept</button>
+  </section>
+
+  <script src="ContinuousSlab.js"></script>
+  <script src="ContinuousSlabCoeff.js"></script>
+  <script src="RCC.js"></script>
+
+  <script>
+    const panelElement = document.getElementById("panel");
+    panelElement.addEventListener("change", doreq);
+
+    function doreq() {
+      console.log("Panel type changed to: " + panelElement.value + '.jpg');
+    }
+
+    const btnElement = document.getElementById('button-accept');
+    btnElement.addEventListener("click", accept);
+
+    function accept() {
+      let fck = parseFloat(document.getElementById('cGrade').value);
+      let fy = parseFloat(document.getElementById('sGrade').value);
+      let lx = parseFloat(document.getElementById('input-lx').value);
+      let ly = parseFloat(document.getElementById('input-ly').value);
+      let dl = parseFloat(document.getElementById('input-dl').value);
+      let ll = parseFloat(document.getElementById('input-ll').value);
+      let cc = parseFloat(document.getElementById('input-cc').value);
+      let panelType = document.getElementById('panel').value;
+
+      if (isNaN(fck) || isNaN(fy) || isNaN(lx) || isNaN(ly) || isNaN(dl) || isNaN(ll) || isNaN(cc)) {
+        alert("Please fill out all fields correctly.");
+        return;
+      }
+
+      if (ly / lx > 2) {
+        alert("Slab must be two-way slab.");
+        return;
+      }
+
+      let slab = new ContinuousSlab(panelType, ly, lx, fck, fy, dl, ll);
+      slab.cc = cc;
+      localStorage.setItem('slab', JSON.stringify(slab));
+      window.location.href = 'AdoptThickness.html';
+    }
+  </script>
+</body>
+</html>
