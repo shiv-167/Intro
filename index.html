@@ -1,203 +1,494 @@
+# Beautiful Modern Portfolio Website
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Shiv's Web-Apps</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f7fb;
             color: #333;
+            line-height: 1.8;
         }
+
+        /* HEADER */
+
         header {
-            background-color: #1e90ff;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 36px;
-        }
-        nav {
+            height: 100vh;
+            background:
+                linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop');
+
+            background-size: cover;
+            background-position: center;
+
             display: flex;
             justify-content: center;
-            background-color: #20b2aa;
-            padding: 10px;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
         }
-        nav a {
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: auto;
+            opacity: 0.95;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 30px;
+            background: #00bcd4;
             color: white;
             text-decoration: none;
-            padding: 12px 20px;
-            margin: 0 10px;
-            transition: background-color 0.3s;
-            font-size: 18px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
         }
-        nav a:hover {
-            background-color: #008b8b;
+
+        .hero-btn:hover {
+            background: #0097a7;
+            transform: translateY(-3px);
         }
-        section {
-            padding: 50px 10%;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        .Web-Apps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .Web-Apps-item {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        .Web-Apps-item:hover {
-            transform: scale(1.05);
-        }
-        .Web-Apps-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .Web-Apps-item h3 {
-            margin-top: 10px;
-            color: #20b2aa;
-        }
-        footer {
-            background-color: #1e90ff;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-        .skills-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+
+        /* NAVBAR */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: white;
             display: flex;
-            
             justify-content: center;
+            gap: 20px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
-        .skills-list li {
-            background-color: #20b2aa;
-            color: white;
-            padding: 10px 20px;
-            margin: 10px;
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #00bcd4;
+        }
+
+        /* GENERAL SECTION */
+
+        section {
+            padding: 80px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #666;
+        }
+
+        /* ABOUT */
+
+        .about-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
             border-radius: 20px;
-            font-size: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
+
+        .about-text {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* SKILLS */
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 14px 22px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .skill-item:hover {
+            background: #00bcd4;
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        /* PROJECTS */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-content h3 {
+            margin-bottom: 12px;
+            color: #00a0b5;
+        }
+
+        .project-content p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .project-btn {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 10px 20px;
+            background: #00bcd4;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .project-btn:hover {
+            background: #0097a7;
+        }
+
+        /* CONTACT */
+
+        .contact-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 700px;
+            margin: auto;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .contact-box a {
+            color: #00a0b5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 768px) {
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            section {
+                padding: 60px 7%;
+            }
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- HERO SECTION -->
+
     <header>
-        <h1>Shiv's Web-Apps</h1>
+        <div class="hero-content">
+            <h1>Shiv's Web-Apps</h1>
+
+            <p>
+                Civil Engineer • Web Developer • Structural Design Enthusiast
+            </p>
+
+            <a href="#projects" class="hero-btn">
+                Explore My Projects
+            </a>
+        </div>
     </header>
 
-    <!-- Navigation Menu -->
+    <!-- NAVIGATION -->
+
     <nav>
-        <a href="#about">About Me</a>
+        <a href="#about">About</a>
         <a href="#skills">Skills</a>
-        <a href="#Web-Apps">Web-Apps</a>
+        <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
     </nav>
 
-    <!-- About Me Section -->
+    <!-- ABOUT -->
+
     <section id="about">
-        <h2>About Me</h2>
-        <p>
-            Hello! I'm Shiv — a passionate web designer and developer with a background in civil engineering.
-            I specialize in creating clean, functional, and visually engaging websites that not only look great but also deliver a smooth user experience. 
-            My goal is to help individuals and businesses bring their ideas to life through modern and responsive web design.
-        </p>
-        
-        <p>
-            I hold a Bachelor's degree in Civil Engineering from <strong>Tribhuvan University</strong>, where I developed a strong foundation in technical problem-solving, structural design, and analytical thinking. 
-            Currently, I’m working at the <strong>Department of Roads, Nepal</strong>, where I contribute to infrastructure development that shapes our nation's connectivity and growth.
-        </p>
-        
-        <p>
-            While my professional background lies in civil engineering, my passion for technology and design led me to the world of web development. 
-            Now, I combine the precision of engineering with the creativity of design to build meaningful digital experiences.
-        </p>
-        
-        <p>
-            Feel free to explore my Web-Apps to see some of the projects I've worked on — from structural design tools to sleek websites. 
-            Let’s connect and build something amazing together!
-        </p>
-        
-    </section>
 
-    <!-- Skills Section -->
-    <section id="skills">
-        <h2>My Skills</h2>
-        <ul class="skills-list">
-            <li>HTML, CSS, JavaScript</li>
-            <li>Responsive Web Design</li>
-            <li>UI/UX Design</li>
-            <li>Adobe Photoshop</li>
-            <li>.NET Framework, C#</li>
-            <li>AutoCAD.NET Development</li>
-            <li>STAAD Pro</li>
-            <li>ETABS</li>
-        </ul>
-    </section>
-
-    <!-- Web-Apps Section -->
-    <section id="Web-Apps">
-        <h2>My Web-Applications</h2>
-        <div class="Web-Apps-grid">
-            <!-- Web-Apps Item 1 -->
-            <div class="Web-Apps-item">
-                <a href="SlabDesign/index.html">
-                    <img src="images/imageSlab.png" alt="Slab Design Application" style="width:100px">
-                </a>
-                <h3>Continuous Two-Way Slab Design</h3>
-                <p>A web-based application for designing continuous two-way slabs as per IS 456:2000 guidelines.</p>
-            </div>
-
-            <!-- Web-Apps Item 2 -->
-            <div class="Web-Apps-item">
-                <a href="DesignStress/DesignStress.html"><img src="images/curve.png" alt="Design 2" style="width: 185px;"></a>
-                
-                <h3>Stress Stress within Elastic Limit</h3>
-                <p>To determine the stress in steel and concrete from known strain values,  <em>Hooke’s Law</em>  is applied within the elastic range of the materials</p>
-            </div>
-
-            <!-- Web-Apps Item 3 -->
-            <div class="Web-Apps-item">
-                <img src="design3.jpg" alt="Design 3">
-                <h3>Project 3</h3>
-                <p>Short description of this project.</p>
-            </div>
+        <div class="section-title">
+            <h2>About Me</h2>
+            <p>Engineer by profession, developer by passion.</p>
         </div>
+
+        <div class="about-container">
+
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop" alt="About Shiv">
+            </div>
+
+            <div class="about-text">
+
+                <p>
+                    Hello! I'm Shiv — a passionate web developer and civil engineer from Nepal.
+                    I enjoy building modern engineering tools, responsive websites,
+                    and structural design applications.
+                </p>
+
+                <br>
+
+                <p>
+                    I completed my Bachelor's degree in Civil Engineering from
+                    Tribhuvan University and currently work at the Department of Roads, Nepal.
+                </p>
+
+                <br>
+
+                <p>
+                    My unique combination of engineering knowledge and programming skills
+                    allows me to create practical and useful web-based engineering solutions.
+                </p>
+
+            </div>
+
+        </div>
+
     </section>
 
-    <!-- Contact Section -->
+    <!-- SKILLS -->
+
+    <section id="skills">
+
+        <div class="section-title">
+            <h2>My Skills</h2>
+            <p>Technologies and tools I work with.</p>
+        </div>
+
+        <div class="skills-container">
+
+            <div class="skill-item">HTML</div>
+            <div class="skill-item">CSS</div>
+            <div class="skill-item">JavaScript</div>
+            <div class="skill-item">ASP.NET Core</div>
+            <div class="skill-item">C#</div>
+            <div class="skill-item">AutoCAD .NET</div>
+            <div class="skill-item">STAAD Pro</div>
+            <div class="skill-item">ETABS</div>
+            <div class="skill-item">Responsive Web Design</div>
+            <div class="skill-item">Structural Design</div>
+
+        </div>
+
+    </section>
+
+    <!-- PROJECTS -->
+
+    <section id="projects">
+
+        <div class="section-title">
+            <h2>My Web Applications</h2>
+            <p>Some engineering and web development projects.</p>
+        </div>
+
+        <div class="projects-grid">
+
+            <!-- PROJECT 1 -->
+
+            <div class="project-card">
+
+                <img src="images/imageSlab.png" alt="Slab Design">
+
+                <div class="project-content">
+
+                    <h3>Continuous Two-Way Slab Design</h3>
+
+                    <p>
+                        Web-based application for designing continuous two-way slabs
+                        according to IS 456:2000.
+                    </p>
+
+                    <a href="SlabDesign/index.html" class="project-btn">
+                        Open Project
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- PROJECT 2 -->
+
+            <div class="project-card">
+
+                <img src="images/curve.png" alt="Stress Curve">
+
+                <div class="project-content">
+
+                    <h3>Stress Within Elastic Limit</h3>
+
+                    <p>
+                        Calculates stress in steel and concrete using Hooke's Law
+                        within the elastic range.
+                    </p>
+
+                    <a href="DesignStress/DesignStress.html" class="project-btn">
+                        Open Project
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- PROJECT 3 -->
+
+            <div class="project-card">
+
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="Future Project">
+
+                <div class="project-content">
+
+                    <h3>Upcoming Structural Tools</h3>
+
+                    <p>
+                        More advanced civil engineering and structural design
+                        web applications are under development.
+                    </p>
+
+                    <a href="#" class="project-btn">
+                        Coming Soon
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACT -->
+
     <section id="contact">
-        <h2>Contact</h2>
-        <p>Feel free to get in touch with me for any inquiries or projects!</p>
-        <p>Email: <a href="mailto:shiv@example.com">shiv@example.com</a></p>
+
+        <div class="section-title">
+            <h2>Contact Me</h2>
+            <p>Let's build something meaningful together.</p>
+        </div>
+
+        <div class="contact-box">
+
+            <p>
+                Feel free to contact me for web development,
+                structural engineering tools, or collaboration opportunities.
+            </p>
+
+            <br>
+
+            <p>
+                Email:
+                <a href="mailto:shiv@example.com">
+                    shiv@example.com
+                </a>
+            </p>
+
+        </div>
+
     </section>
 
-    <!-- Footer Section -->
+    <!-- FOOTER -->
+
     <footer>
-        <p>&copy; 2025 Shiv's Web-Apps. All rights reserved.</p>
+        <p>
+            © 2026 Shiv's Web-Apps | Designed with ❤️ by Shiv
+        </p>
     </footer>
 
 </body>
 </html>
+```
